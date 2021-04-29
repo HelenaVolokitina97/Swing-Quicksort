@@ -74,15 +74,15 @@ public class QuickSortFrame extends JFrame { // The frame for the visual compone
 		countField.setBorder(border2);
 		setParameters(enterButton, enterPanel, 90, 30, 540, 350, 4, 0, true, (ActionEvent e) -> {
 			// The button to enter the buttons amount
-			isAscending = true; // changes the sorting order
+			isAscending = false; // changes the sorting order to descending
 			String input = countField.getText(); // reads the input text
 			if (input != null) // validation of the entered value
 				if (input.matches("\\d{1,3}")) {
 					int number = Integer.parseInt(input);
 					if (number <= 100) // it must be integer value between 0 and 100
-					{
-						between.setVisible(false); // not displaying the warning message
-						resetArray(number, true); // resets all the button values
+					{ // fills the array with random numbers and locates them in the grid,
+						resetArray(number, true); // resets all the buttons values
+						between.setVisible(false); // not displaying the warning message						
 						sortButton.setEnabled(number > 1);
 						enterPanel.setVisible(false); // switches from the main screen
 						sortPanel.setVisible(true); // to the sort screen
@@ -284,6 +284,7 @@ public class QuickSortFrame extends JFrame { // The frame for the visual compone
 						}
 						highlight(middle, middle + (isI ? 1 : -1), true);
 						highlight(middle, middle + (isI ? 1 : -1), false); // undo the highlight after the swapping
+
 						if (isI) // sets new middle position
 							i++;
 						else
@@ -292,11 +293,13 @@ public class QuickSortFrame extends JFrame { // The frame for the visual compone
 					} else // if the element is not suitable for swapping
 					{
 						if (isI) // move to the next element
-							j--; // this loop will continue until the cursor
+							j--;
 						else
 							i++;
-					}
-				} // is on pivot position in both directions
+					} // this loop will continue until the cursor is on pivot position 						
+				} // in both directions
+				highlight(middle, middle, true);
+				highlight(middle, middle, false);
 				if (high - low < 2) // returns if it is nothing to swap
 					return;
 				break;
